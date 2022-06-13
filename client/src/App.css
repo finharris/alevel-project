@@ -1,14 +1,13 @@
-table {
-  background: lightgray;
-  border: 3px solid black;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-thead td {
-  padding: 0.5em;
-}
-
-.form {
-  margin-bottom: 2rem;
+:root {
+  --primary: rgb(73, 170, 244);
 }
 
 body {
@@ -16,4 +15,18 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+}
+
+header {
+  background: var(--primary);
+  width: 100vw;
+  height: 5rem;
+  flex-direction: rows;
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+}
+
+.logo {
+  height: 3.5rem;
 }

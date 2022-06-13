@@ -1,68 +1,24 @@
 import React, { useEffect, useState, createRef } from "react";
 import "./App.css";
+import MainLayout from "./components/MainLayout";
 
 function App() {
-  const [returnData, setReturnData] = useState([]);
+  const [products, setProducts] = useState([]);
 
-  const textBoxRef = createRef();
-
-  async function getFirstName() {
-    let res;
-    if (!textBoxRef.current.value) {
-      res = await fetch(`/api/users`);
-    } else {
-      res = await fetch(`/api/users?firstname=${textBoxRef.current.value}`);
-    }
-    const data = await res.json();
-    if (data.length === 0) {
-      setReturnData(null);
-    } else {
-      setReturnData(data);
-    }
+  async function getProducts() {
+    const res = await fetch("/api/products");
+    setProducts(await res.json());
   }
 
-  useEffect(() => {
-    getFirstName();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  async function removeProduct(id) {
+    const res = await fetch(`/api/products/remove?id=${id}`);
+    console.log(await res.json());
+    getProducts();
+  }
 
   return (
     <>
-      <h1>User Name Search</h1>
-      <div className='form'>
-        <input type='text' name='firstName' id='firstName' ref={textBoxRef} />
-        <input type='button' value='Search' onClick={() => getFirstName()} />
-      </div>
-      {returnData === null ? (
-        <h3>No result.</h3>
-      ) : returnData.length === 0 ? (
-        <h3>Loading...</h3>
-      ) : (
-        <table>
-          <thead>
-            <tr>
-              <td>ID</td>
-              <td>First Name</td>
-              <td>Last Name</td>
-              <td>Email</td>
-              <td>Gender</td>
-            </tr>
-          </thead>
-          <tbody>
-            {returnData === []
-              ? null
-              : returnData.map((d, key) => (
-                  <tr key={key}>
-                    <td>{d.id}</td>
-                    <td>{d.first_name}</td>
-                    <td>{d.last_name}</td>
-                    <td>{d.email}</td>
-                    <td>{d.gender}</td>
-                  </tr>
-                ))}
-          </tbody>
-        </table>
-      )}
+      <MainLayout></MainLayout>
     </>
   );
 }

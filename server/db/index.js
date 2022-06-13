@@ -9,11 +9,11 @@ const pool = mysql.createPool({
   port: "3306",
 });
 
-let usersdb = {};
+let db = {};
 
-usersdb.all = () => {
+db.allProducts = () => {
   return new Promise((resolve, reject) => {
-    pool.query("SELECT * FROM test_schema.mock_data", (err, results) => {
+    pool.query("SELECT * FROM alevel_project.products", (err, results) => {
       if (err) {
         console.log(err);
         return reject(err);
@@ -24,11 +24,10 @@ usersdb.all = () => {
   });
 };
 
-usersdb.name = (firstName) => {
+db.allCategories = () => {
   return new Promise((resolve, reject) => {
     pool.query(
-      "SELECT * FROM test_schema.mock_data WHERE first_name = ?",
-      [firstName],
+      "SELECT * FROM alevel_project.categories ORDER BY id",
       (err, results) => {
         if (err) {
           console.log(err);
@@ -41,4 +40,68 @@ usersdb.name = (firstName) => {
   });
 };
 
-module.exports = usersdb;
+db.addProduct = (name, category_id, purchase_cost, selling_cost) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "INSERT INTO alevel_project.products (name, category_id, purchase_cost, selling_cost) VALUES (?, ?, ?, ?)",
+      [name, category_id, purchase_cost, selling_cost],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
+
+        return resolve(results);
+      }
+    );
+  });
+};
+
+db.removeProduct = (id) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "DELETE FROM alevel_project.products WHERE id=?",
+      [id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
+
+        return resolve(results);
+      }
+    );
+  });
+};
+
+// db.all = () => {
+//   return new Promise((resolve, reject) => {
+//     pool.query("SELECT * FROM test_schema.mock_data", (err, results) => {
+//       if (err) {
+//         console.log(err);
+//         return reject(err);
+//       }
+
+//       return resolve(results);
+//     });
+//   });
+// };
+
+// db.name = (firstName) => {
+//   return new Promise((resolve, reject) => {
+//     pool.query(
+//       "SELECT * FROM test_schema.mock_data WHERE first_name = ?",
+//       [firstName],
+//       (err, results) => {
+//         if (err) {
+//           console.log(err);
+//           return reject(err);
+//         }
+
+//         return resolve(results);
+//       }
+//     );
+//   });
+// };
+
+module.exports = db;

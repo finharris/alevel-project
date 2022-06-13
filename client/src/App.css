@@ -1,0 +1,19 @@
+table {
+  background: lightgray;
+  border: 3px solid black;
+}
+
+thead td {
+  padding: 0.5em;
+}
+
+.form {
+  margin-bottom: 2rem;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}

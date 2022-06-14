@@ -23,6 +23,8 @@ function App() {
       <MainLayout></MainLayout>
       <input type='button' value='get products' onClick={() => getProducts()} />
 
+      <h1>test</h1>
+
       <br />
       <input
         type='button'

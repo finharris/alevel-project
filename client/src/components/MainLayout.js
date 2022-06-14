@@ -1,6 +1,6 @@
 import React from "react";
 
-function MainLayout() {
+function MainLayout(props) {
   return (
     <>
       <header>
@@ -10,6 +10,8 @@ function MainLayout() {
           className='logo'
         />
       </header>
+
+      {props.children}
     </>
   );
 }

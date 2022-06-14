@@ -1,5 +1,6 @@
-import React, { useEffect, useState, createRef } from "react";
+import React, { useState } from "react";
 import "./App.css";
+import AccountChoice from "./components/AccountChoice";
 import MainLayout from "./components/MainLayout";
 
 function App() {
@@ -16,43 +17,11 @@ function App() {
     getProducts();
   }
 
-  const idRef = createRef();
-
   return (
     <>
-      <MainLayout></MainLayout>
-      <input type='button' value='get products' onClick={() => getProducts()} />
-
-      <br />
-      <input
-        type='button'
-        value='remove product'
-        onClick={() => removeProduct(idRef.current.value)}
-      />
-      <input type='text' name='id' id='id' ref={idRef} />
-
-      <table>
-        <thead>
-          <tr>
-            <td>id</td>
-            <td>name</td>
-            <td>cat id</td>
-            <td>buy cost</td>
-            <td>sell cost</td>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product) => (
-            <tr>
-              <td>{product.id}</td>
-              <td>{product.name}</td>
-              <td>{product.category_id}</td>
-              <td>{product.purchase_cost}</td>
-              <td>{product.selling_cost}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <MainLayout>
+        <AccountChoice></AccountChoice>
+      </MainLayout>
     </>
   );
 }

@@ -18,6 +18,7 @@ function AccountChoice() {
   }
 
   function handleKeypadSubmit(value) {
+    // maybe get correct values from db
     if (userOption === "Waiter" && value == "1111") {
       setUserType(userOption);
     } else if (userOption === "Manager" && value == "2222") {

@@ -74,6 +74,18 @@ db.removeProduct = (id) => {
   });
 };
 
+db.authCodes = () => {
+  return new Promise((resolve, reject) => {
+    pool.query("SELECT * FROM alevel_project.auth_codes", (err, results) => {
+      if (err) {
+        console.log(err);
+        return reject(err);
+      }
+      return resolve(results);
+    });
+  });
+};
+
 // db.all = () => {
 //   return new Promise((resolve, reject) => {
 //     pool.query("SELECT * FROM test_schema.mock_data", (err, results) => {

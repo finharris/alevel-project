@@ -1,0 +1,23 @@
+.choiceButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.choiceButtons > input {
+  width: 15rem;
+  height: 15rem;
+  font-size: 3rem;
+  font-weight: 600;
+  background-color: var(--primary);
+  color: white;
+  margin: 1rem;
+  border: 2px solid gray;
+  border-radius: 2rem;
+  transition: background 100ms ease-out;
+}
+
+.choiceButtons > input:hover {
+  background: var(--primaryDimmed);
+}

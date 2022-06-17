@@ -1,0 +1,33 @@
+.tableChoiceMain {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.tableChoiceTable {
+  width: 10rem;
+  max-height: 500px;
+}
+
+.tableChoiceTable tbody {
+  overflow-y: scroll;
+  max-height: calc(500px - 3rem);
+  display: block;
+}
+
+.tableChoiceTable tr {
+  height: 3rem;
+  width: 100%;
+}
+
+.tableChoiceTable tbody tr,
+.tableChoiceTable tbody td {
+  width: 10rem;
+}
+
+.tableChoiceMain .keypadTable {
+  height: 500px;
+  width: 30rem;
+}

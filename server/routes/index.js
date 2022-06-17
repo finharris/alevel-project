@@ -17,4 +17,7 @@ router.get("/products/remove", removeProduct);
 const categories = require("./categories");
 router.get("/categories", categories);
 
+const authCodes = require("./authCodes");
+router.get("/authcodes", authCodes);
+
 module.exports = router;

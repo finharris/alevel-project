@@ -1,0 +1,9 @@
+.goBackArea {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+}
+
+.goBackArea h3 {
+  cursor: pointer;
+}

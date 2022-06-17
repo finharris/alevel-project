@@ -1,0 +1,39 @@
+/* popup style */
+
+.popup {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupBox {
+  width: min(70vw, 70vh);
+  height: min(70vw, 70vh);
+  background: white;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popupClose {
+  content: "x";
+  cursor: pointer;
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  background: #ededed;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #999;
+  font-size: 20px;
+}

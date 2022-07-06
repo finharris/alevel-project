@@ -1,9 +1,62 @@
+.foodSelectionContainer {
+  height: 100%;
+}
+
 .goBackArea {
   position: fixed;
   top: 2rem;
   right: 2rem;
 }
 
-.goBackArea h3 {
-  cursor: pointer;
+.foodTable {
+  max-width: 50vw;
+  height: 100%;
+}
+
+.foodTable thead td {
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.productsGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.productTile {
+  width: 10rem;
+  height: 10rem;
+  background: red;
+}
+
+.tablesArea {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.tabList {
+  height: 100%;
+  width: 50vw;
+}
+
+.tabTableRow ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+#minusQuantity,
+#addQuantity {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+#quantity {
+  height: 1.5rem;
+  max-width: 2rem;
+  text-align: center;
 }

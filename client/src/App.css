@@ -38,3 +38,7 @@ header {
 .logo {
   height: 3.5rem;
 }
+
+.clickable {
+  cursor: pointer;
+}

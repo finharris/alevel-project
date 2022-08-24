@@ -71,6 +71,7 @@ function WaiterArea(props) {
           categories={categories}
           products={products}
           refresh={handleGridRefresh}
+          setIsLoading={props.setIsLoading}
         ></FoodSelection>
       ) : (
         <TableChoiceMenu

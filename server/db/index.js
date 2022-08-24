@@ -119,16 +119,12 @@ db.addTable = (number) => {
   });
 };
 
-db.allSales = (tableNumber) => {
+db.removeTable = (number) => {
+  const query = `
+  DELETE FROM alevel_project.tables WHERE number = ?;
+  `;
   return new Promise((resolve, reject) => {
-    let query;
-
-    if (!tableNumber) {
-      query = "SELECT * FROM alevel_project.item_sales";
-    } else {
-      query = "SELECT * FROM alevel_project.item_sales WHERE table_number = ?";
-    }
-    pool.query(query, [tableNumber], (err, results) => {
+    pool.query(query, [number], (err, results) => {
       if (err) {
         console.log(err);
         return reject(err);
@@ -139,34 +135,24 @@ db.allSales = (tableNumber) => {
   });
 };
 
-db.addSale = (table_number, product_id) => {
-  // http://localhost:5000/api/sales/add?table_number=1&product_id=3
+db.allSales = () => {
+  return new Promise((resolve, reject) => {
+    pool.query("SELECT * FROM alevel_project.item_sales", (err, results) => {
+      if (err) {
+        console.log(err);
+        return reject(err);
+      }
 
-  const query = `
-    IF EXISTS (SELECT 1 FROM alevel_project.item_sales WHERE table_number = ? AND product_id = ?)
-    BEGIN
-        UPDATE alevel_project.item_sales 
-        SET quantity = quantity + 1
-        WHERE table_number = ? AND product_id = ?;
-    END
-    ELSE
-    BEGIN
-        INSERT INTO alevel_project.item_sales (table_nuber, product_id, quantity) VALUES (?, ?, ?)
-    END
-  `;
+      return resolve(results);
+    });
+  });
+};
 
+db.updateSale = (sale_id, newQuantity) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      query,
-      [
-        table_number,
-        product_id,
-        table_number,
-        product_id,
-        table_number,
-        product_id,
-        1,
-      ],
+      "UPDATE alevel_project.item_sales SET quantity = ? WHERE sale_id = ? ;",
+      [newQuantity, sale_id],
       (err, results) => {
         if (err) {
           console.log(err);
@@ -176,6 +162,45 @@ db.addSale = (table_number, product_id) => {
         return resolve(results);
       }
     );
+  });
+};
+
+db.addSale = (table_number, product_id) => {
+  // http://localhost:5000/api/sales/add?table_number=1&product_id=3
+
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "INSERT INTO alevel_project.item_sales (table_number, product_id, quantity) VALUES (?, ?, ?)",
+      [table_number, product_id, 1],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
+
+        return resolve(results);
+      }
+    );
+  });
+};
+
+db.removeSale = (table_number, product_id = null) => {
+  let query;
+  if (!product_id) {
+    query = "DELETE FROM alevel_project.item_sales WHERE table_number = ?";
+  } else {
+    query =
+      "DELETE FROM alevel_project.item_sales WHERE table_number = ? AND product_id = ?";
+  }
+  return new Promise((resolve, reject) => {
+    pool.query(query, [table_number, product_id], (err, results) => {
+      if (err) {
+        console.log(err);
+        return reject(err);
+      }
+
+      return resolve(results);
+    });
   });
 };
 

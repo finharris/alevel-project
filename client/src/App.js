@@ -7,6 +7,7 @@ import WaiterArea from "./components/waiterArea/WaiterArea";
 function App() {
   const [products, setProducts] = useState([]);
   const [userOption, setUserOption] = useState(undefined); // undefined default
+  const [isLoading, setIsLoading] = useState(false);
 
   function handleUserOption(option) {
     setUserOption(option);
@@ -19,14 +20,22 @@ function App() {
   function handleRenderSwitch(param) {
     switch (param) {
       case "Waiter":
-        return <WaiterArea handleSignOut={handleSignOut}></WaiterArea>;
+        return (
+          <WaiterArea
+            handleSignOut={handleSignOut}
+            setIsLoading={setIsLoading}
+          ></WaiterArea>
+        );
 
       case "Manager":
         return <h1>Manager</h1>;
 
       default:
         return (
-          <AccountChoice handleUserOption={handleUserOption}></AccountChoice>
+          <AccountChoice
+            handleUserOption={handleUserOption}
+            setIsLoading={setIsLoading}
+          ></AccountChoice>
         );
     }
   }
@@ -44,6 +53,11 @@ function App() {
 
   return (
     <>
+      {isLoading ? (
+        <div className='loading'>
+          <p>loading...</p>
+        </div>
+      ) : null}
       <MainLayout>{handleRenderSwitch(userOption)}</MainLayout>
     </>
   );

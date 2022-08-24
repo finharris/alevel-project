@@ -42,3 +42,14 @@ header {
 .clickable {
   cursor: pointer;
 }
+
+.loading {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 3rem;
+}

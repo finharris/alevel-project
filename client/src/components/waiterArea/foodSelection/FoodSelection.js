@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import ProductTile from "./productTile/ProductTile";
 import "./FoodSelection.css";
-import TabItem from "./tabItem/TabItem";
+import TabList from "./tabList/TabList";
 
 function FoodSelection(props) {
   const [activeCategory, setActiveCategory] = useState(undefined);
-  const [activeTab, setActiveTab] = useState([]);
+  const [tabItems, setTabItems] = useState([]);
+
+  async function getTabItems(tableNumber) {
+    const res = await fetch(`/api/sales`);
+    const data = await res.json();
+    const filteredData = data.filter(
+      (item) => item.table_number === tableNumber
+    );
+    setTabItems(filteredData);
+  }
 
   useEffect(() => {
-    // update tab in db
-    // props selectedTable
-  }, [activeTab]);
+    getTabItems(props.selectedTable);
+  }, [props.selectedTable]);
 
   function handleSelectCategory(name) {
     for (const c of props.categories) {
@@ -20,27 +28,17 @@ function FoodSelection(props) {
     }
   }
 
-  function handleProductSelect(p) {
-    let currentIndex = -1;
-    activeTab.forEach((item, i) => {
-      if (item.name === p.name) {
-        currentIndex = i;
-      }
-    });
-
-    if (currentIndex === -1) {
-      return setActiveTab([
-        ...activeTab,
-        {
-          name: p.name,
-          quantity: 1,
-          selling_cost: p.selling_cost,
-        },
-      ]);
+  async function handleProductSelect(p) {
+    // add item to tab in db
+    if (tabItems.includes(p)) {
+      // update
     } else {
-      const newTab = [...activeTab];
-      newTab[currentIndex].quantity += 1;
-      return setActiveTab(newTab);
+      // add new
+      const results = await fetch(
+        `/api/sales/add?table_number=${props.selectedTable}&product_id=${p.productID}`
+      );
+      getTabItems(props.selectedTable);
+      console.log(results);
     }
   }
 
@@ -60,31 +58,6 @@ function FoodSelection(props) {
       ));
     } else {
       return <h3>Please select a category.</h3>;
-    }
-  }
-
-  function calculateTotalCost() {
-    let total = 0;
-    for (const item of activeTab) {
-      total += item.selling_cost * item.quantity;
-    }
-    return total;
-  }
-
-  function handleQuantityChange(name, newQuantity) {
-    let currentIndex = -1;
-    activeTab.forEach((item, i) => {
-      if (item.name === name) {
-        currentIndex = i;
-      }
-    });
-
-    if (currentIndex === -1) {
-      return;
-    } else {
-      const newTab = [...activeTab];
-      newTab[currentIndex].quantity = newQuantity >= 0 ? newQuantity : 0;
-      return setActiveTab(newTab);
     }
   }
 
@@ -122,41 +95,12 @@ function FoodSelection(props) {
             </tr>
           </tbody>
         </table>
-        <table className='tabList' border={1}>
-          <thead>
-            <tr>
-              <td colSpan='100%'>
-                <h2>TAB</h2>
-              </td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className='tabTableRow'>
-              <td colSpan='100%'>
-                <ol>
-                  {activeTab.map((item, key) =>
-                    item.quantity > 0 ? (
-                      <TabItem
-                        name={item.name}
-                        quantity={item.quantity}
-                        selling_cost={item.selling_cost}
-                        handleQuantityChange={handleQuantityChange}
-                        key={key}
-                      ></TabItem>
-                    ) : null
-                  )}
-                </ol>
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <td colSpan='100%'>
-                <h4>Total: £{calculateTotalCost()}</h4>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+        <TabList
+          selectedTable={props.selectedTable}
+          tabItems={tabItems}
+          getTabItems={getTabItems}
+          setIsLoading={props.setIsLoading}
+        ></TabList>
       </div>
     </div>
   );

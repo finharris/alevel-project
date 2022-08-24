@@ -1,9 +1,8 @@
 const db = require("../db");
 
 module.exports = async (req, res, next) => {
-  const params = req.query;
   try {
-    let results = await db.allSales(params.tableNumber);
+    let results = await db.allSales();
     res.json(results);
   } catch (err) {
     console.log(err);

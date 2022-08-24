@@ -3,7 +3,9 @@ import React from "react";
 function TabItem(props) {
   return (
     <li>
-      <h5 className='tabItemName'>{props.name}</h5>
+      <h5 className='tabItemName'>
+        {props.name} (£{props.selling_cost})
+      </h5>
       <div>
         <div className='quantityArea'>
           <input
@@ -11,7 +13,7 @@ function TabItem(props) {
             value='-'
             id='minusQuantity'
             onClick={() =>
-              props.handleQuantityChange(props.name, props.quantity - 1)
+              props.handleQuantityChange(props.sale_id, props.quantity - 1)
             }
           />
           <input
@@ -26,7 +28,7 @@ function TabItem(props) {
             value='+'
             id='addQuantity'
             onClick={() =>
-              props.handleQuantityChange(props.name, props.quantity + 1)
+              props.handleQuantityChange(props.sale_id, props.quantity + 1)
             }
           />
         </div>

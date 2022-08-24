@@ -5,7 +5,7 @@ const db = require("../db");
 module.exports = async (req, res, next) => {
   const params = req.query;
   try {
-    results = await db.addSale(params.table_number, params.product_id);
+    results = await db.updateSale(params.sale_id, params.new_quantity);
     res.json(results);
   } catch (err) {
     console.log(err);

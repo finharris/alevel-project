@@ -26,10 +26,16 @@ router.get("/tables", tables);
 const addTable = require("./addTable");
 router.get("/tables/add", addTable);
 
+const removeTable = require("./removeTable");
+router.get("/tables/remove", removeTable);
+
 const sales = require("./sales");
 router.get("/sales", sales);
 
 const addSale = require("./addSale");
 router.get("/sales/add", addSale);
+
+const updateSale = require("./updateSale");
+router.get("/sales/update", updateSale);
 
 module.exports = router;

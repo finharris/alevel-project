@@ -15,6 +15,7 @@ function TabItem(props) {
             onClick={() =>
               props.handleQuantityChange(props.sale_id, props.quantity - 1)
             }
+            class='quantityButton'
           />
           <input
             type='text'
@@ -30,6 +31,7 @@ function TabItem(props) {
             onClick={() =>
               props.handleQuantityChange(props.sale_id, props.quantity + 1)
             }
+            class='quantityButton'
           />
         </div>
         <p className='tabItemCost'>£{props.selling_cost * props.quantity}</p>

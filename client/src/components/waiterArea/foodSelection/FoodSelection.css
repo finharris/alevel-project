@@ -36,27 +36,3 @@
   flex-direction: row;
   gap: 3rem;
 }
-
-.tabList {
-  height: 100%;
-  width: 50vw;
-}
-
-.tabTableRow ol {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
-}
-
-#minusQuantity,
-#addQuantity {
-  height: 1.5rem;
-  width: 1.5rem;
-}
-
-#quantity {
-  height: 1.5rem;
-  max-width: 2rem;
-  text-align: center;
-}

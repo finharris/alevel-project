@@ -1,4 +1,4 @@
-import React, { createRef } from "react";
+import React, { createRef, useEffect } from "react";
 import KeypadButton from "./KeypadButton";
 import "./Keypad.css";
 
@@ -17,8 +17,18 @@ function Keypad(props) {
     outputRef.current.value += value;
   }
 
+  function handleKeyDown(event) {
+    if (event.key === "Enter") {
+      handleClick("Enter");
+    }
+  }
+
+  useEffect(() => {
+    outputRef.current.focus();
+  }, []);
+
   return (
-    <table className='keypadTable' cellSpacing={0}>
+    <table className='keypadTable' cellSpacing={0} onKeyDown={handleKeyDown}>
       {/* <input type='text' ref={valueRef} />
     <input
       type='button'

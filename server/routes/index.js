@@ -38,4 +38,7 @@ router.get("/sales/add", addSale);
 const updateSale = require("./updateSale");
 router.get("/sales/update", updateSale);
 
+const removeSale = require("./removeSale");
+router.get("/sales/remove", removeSale);
+
 module.exports = router;

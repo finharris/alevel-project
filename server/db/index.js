@@ -184,23 +184,38 @@ db.addSale = (table_number, product_id) => {
   });
 };
 
-db.removeSale = (table_number, product_id = null) => {
-  let query;
-  if (!product_id) {
-    query = "DELETE FROM alevel_project.item_sales WHERE table_number = ?";
-  } else {
-    query =
-      "DELETE FROM alevel_project.item_sales WHERE table_number = ? AND product_id = ?";
-  }
+db.removeSale = (sale_id) => {
+  // remove sale
   return new Promise((resolve, reject) => {
-    pool.query(query, [table_number, product_id], (err, results) => {
-      if (err) {
-        console.log(err);
-        return reject(err);
-      }
+    pool.query(
+      "DELETE FROM alevel_project.item_sales WHERE sale_id = ?",
+      [sale_id],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
 
-      return resolve(results);
-    });
+        return resolve(results);
+      }
+    );
+  });
+};
+
+db.removeAllSale = (table_number) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "DELETE FROM alevel_project.item_sales WHERE table_number = ?",
+      [table_number],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
+
+        return resolve(results);
+      }
+    );
   });
 };
 

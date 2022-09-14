@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import TabItem from "../tabItem/TabItem";
+import "./TabList.css";
 
 function TabList({ tabItems, getTabItems, selectedTable, setIsLoading }) {
   const [products, setProducts] = useState([]);
+
+  const tabListRef = useRef();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -14,11 +17,30 @@ function TabList({ tabItems, getTabItems, selectedTable, setIsLoading }) {
     getProducts();
   }, []);
 
+  useEffect(() => {
+    // apply style if list is overflowing
+    const tabListElement = tabListRef.current;
+    if (tabListElement.scrollHeight > tabListElement.clientHeight) {
+      // apply style
+      tabListElement.classList.add("tabTableScrollShadow");
+    } else {
+      // remove style
+      tabListElement.classList.remove("tabTableScrollShadow");
+    }
+  }, [tabItems]);
+
   async function handleQuantityChange(sale_id, newQuantity) {
     // call /api/sales/update?sale_id=?&new_quantity=?
-    const results = await fetch(
-      `/api/sales/update?sale_id=${sale_id}&new_quantity=${newQuantity}`
-    ).then(() => {
+    let url;
+
+    if (newQuantity === 0) {
+      // remove sale
+      url = `/api/sales/remove?sale_id=${sale_id}`;
+    } else {
+      url = `/api/sales/update?sale_id=${sale_id}&new_quantity=${newQuantity}`;
+    }
+
+    await fetch(url).then(() => {
       setIsLoading(true);
       getTabItems(selectedTable).then(() => setIsLoading(false));
     });
@@ -76,14 +98,14 @@ function TabList({ tabItems, getTabItems, selectedTable, setIsLoading }) {
       <tbody>
         <tr className='tabTableRow'>
           <td colSpan='100%'>
-            <ol>{renderTabItems()}</ol>
+            <ol ref={tabListRef}>{renderTabItems()}</ol>
           </td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colSpan='100%'>
-            <h4>Total: £{calculateTotalCost()}</h4>
+            <h4 id='totalCost'>Total: £{calculateTotalCost()}</h4>
           </td>
         </tr>
       </tfoot>

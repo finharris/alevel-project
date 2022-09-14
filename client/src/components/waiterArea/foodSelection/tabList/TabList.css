@@ -1,0 +1,49 @@
+.tabTableRow ol {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  overflow-y: scroll;
+  gap: 0.8rem;
+}
+
+.tabTableScrollShadow {
+  box-shadow: inset 0px -39px 25px -30px rgba(0,0,0,0.5);
+}
+
+.tabList {
+  height: 100%;
+  width: 50vw;
+  overflow-y: scroll;
+}
+
+.quantityButton {
+  font-size: 2rem;
+  width: 3rem;
+  height: 3rem;
+}
+
+#quantity {
+  width: 3rem;
+  height: 3rem;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.quantityArea {
+  display: flex; 
+  justify-content: center;
+}
+
+.tabItemName {
+  font-size: 1.2rem;
+}
+
+.tabItemCost {
+  font-size: 1.1rem;
+}
+
+#totalCost {
+  font-size: 1.5rem;
+}

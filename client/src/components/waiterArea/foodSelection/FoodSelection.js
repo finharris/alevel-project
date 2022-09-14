@@ -30,8 +30,17 @@ function FoodSelection(props) {
 
   async function handleProductSelect(p) {
     // add item to tab in db
-    if (tabItems.includes(p)) {
+    const includedItem = await tabItems.filter(
+      (item) => item.product_id === p.productID
+    )[0];
+    if (includedItem) {
       // update
+      const results = await fetch(
+        `/api/sales/update?sale_id=${includedItem.sale_id}&new_quantity=${
+          includedItem.quantity + 1
+        }`
+      );
+      getTabItems(props.selectedTable);
     } else {
       // add new
       const results = await fetch(

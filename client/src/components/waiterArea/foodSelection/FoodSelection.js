@@ -39,8 +39,12 @@ function FoodSelection(props) {
         `/api/sales/update?sale_id=${includedItem.sale_id}&new_quantity=${
           includedItem.quantity + 1
         }`
-      );
-      getTabItems(props.selectedTable);
+      ).then(() => {
+        props.setIsLoading(true);
+        getTabItems(props.selectedTable).then(() => {
+          props.setIsLoading(false);
+        });
+      });
     } else {
       // add new
       const results = await fetch(

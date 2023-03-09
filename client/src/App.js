@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import "./App.css";
 import AccountChoice from "./components/accountChoice/AccountChoice";
 import MainLayout from "./components/MainLayout";
+import ManagerArea from "./components/managerArea/ManagerArea";
 import WaiterArea from "./components/waiterArea/WaiterArea";
 
 function App() {
-  const [products, setProducts] = useState([]);
   const [userOption, setUserOption] = useState(undefined); // undefined default
   const [isLoading, setIsLoading] = useState(false);
 
@@ -28,7 +28,12 @@ function App() {
         );
 
       case "Manager":
-        return <h1>Manager</h1>;
+        return (
+          <ManagerArea
+            handleSignOut={handleSignOut}
+            setIsLoading={setIsLoading}
+          ></ManagerArea>
+        );
 
       default:
         return (
@@ -38,17 +43,6 @@ function App() {
           ></AccountChoice>
         );
     }
-  }
-
-  async function getProducts() {
-    const res = await fetch("/api/products");
-    setProducts(await res.json());
-  }
-
-  async function removeProduct(id) {
-    const res = await fetch(`/api/products/remove?id=${id}`);
-    console.log(await res.json());
-    getProducts();
   }
 
   return (

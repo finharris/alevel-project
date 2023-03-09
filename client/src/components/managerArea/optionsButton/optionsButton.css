@@ -1,0 +1,14 @@
+.optionsButton {
+  cursor: pointer;
+  padding: 0.5rem 2rem;
+  user-select: none;
+}
+
+.optionsButton:hover {
+  background: rgba(0, 0, 0, 0.1);
+  transition: background 0.05s ease-in-out;
+}
+
+.optionsButton:active {
+  background: rgba(0, 0, 0, 0.2);
+}

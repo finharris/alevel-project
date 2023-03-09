@@ -5,6 +5,7 @@ const db = require("../db");
 module.exports = async (req, res, next) => {
   const params = req.query;
   try {
+    await db.removeAllSale(null, params.id);
     let results = await db.removeProduct(params.id, params.name);
     res.json(results);
   } catch (err) {

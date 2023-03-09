@@ -27,7 +27,7 @@ function AccountChoice(props) {
     let authCodes = await fetchData();
     if (userOption === "Waiter" && value === authCodes[1].code) {
       props.handleUserOption(userOption);
-    } else if (userOption === "Manager" && value === "2222") {
+    } else if (userOption === "Manager" && value === authCodes[0].code) {
       props.handleUserOption(userOption);
     } else {
       alert("Incorrect password.");

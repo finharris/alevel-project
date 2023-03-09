@@ -28,6 +28,32 @@ function FoodSelection(props) {
     }
   }
 
+  async function handleCloseTable(totalCost) {
+    // props.selectedTable
+    // props.handleGoBack
+    let confirmation;
+
+    if (totalCost === 0) {
+      alert("No cost, table closed.");
+      confirmation = true;
+    } else {
+      confirmation = window.confirm(
+        `Has the total cost of £${totalCost || 0} been paid?`
+      );
+    }
+
+    if (confirmation) {
+      const results = await fetch(
+        `/api/tables/remove?number=${props.selectedTable}`
+      ).then(() => {
+        props.handleGoBack();
+      });
+    } else {
+      console.log(false);
+      return;
+    }
+  }
+
   async function handleProductSelect(p) {
     // add item to tab in db
     const includedItem = await tabItems.filter(
@@ -113,6 +139,7 @@ function FoodSelection(props) {
           tabItems={tabItems}
           getTabItems={getTabItems}
           setIsLoading={props.setIsLoading}
+          handleCloseTable={handleCloseTable}
         ></TabList>
       </div>
     </div>

@@ -1,10 +1,16 @@
 const db = require("../db");
 
+// http://localhost:5000/api/products/update
+
 module.exports = async (req, res, next) => {
   const params = req.query;
   try {
-    await db.removeAllSale(params.number, null);
-    let results = await db.removeTable(params.number);
+    results = await db.updateProduct(
+      params.name,
+      params.purchase_cost,
+      params.selling_cost,
+      params.productID
+    );
     res.json(results);
   } catch (err) {
     console.log(err);

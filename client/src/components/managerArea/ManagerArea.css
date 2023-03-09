@@ -1,0 +1,25 @@
+.managerAreaContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.goBackArea {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+}
+
+.optionsTable {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  top: 5rem;
+}
+
+.optionsDivision {
+  width: max-content;
+}
+
+.optionsAreaDivision {
+  position: relative;
+}

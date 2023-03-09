@@ -2,7 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import TabItem from "../tabItem/TabItem";
 import "./TabList.css";
 
-function TabList({ tabItems, getTabItems, selectedTable, setIsLoading }) {
+function TabList({
+  tabItems,
+  getTabItems,
+  selectedTable,
+  setIsLoading,
+  handleCloseTable,
+}) {
   const [products, setProducts] = useState([]);
 
   const tabListRef = useRef();
@@ -72,8 +78,7 @@ function TabList({ tabItems, getTabItems, selectedTable, setIsLoading }) {
   }
 
   function calculateTotalCost() {
-    if (tabItems.length < 1) return;
-    if (products.length < 1) return;
+    if (tabItems.length < 1) return 0;
 
     let total = 0;
     for (const item of tabItems) {
@@ -87,29 +92,37 @@ function TabList({ tabItems, getTabItems, selectedTable, setIsLoading }) {
   }
 
   return (
-    <table className='tabList' border={1}>
-      <thead>
-        <tr>
-          <td colSpan='100%'>
-            <h2>TAB</h2>
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr className='tabTableRow'>
-          <td colSpan='100%'>
-            <ol ref={tabListRef}>{renderTabItems()}</ol>
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td colSpan='100%'>
-            <h4 id='totalCost'>Total: £{calculateTotalCost()}</h4>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+    <div className='tabListContainer'>
+      <table className='tabList' border={1}>
+        <thead>
+          <tr>
+            <td colSpan='100%'>
+              <h2>TAB</h2>
+            </td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr className='tabTableRow'>
+            <td colSpan='100%'>
+              <ol ref={tabListRef}>{renderTabItems()}</ol>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colSpan='100%'>
+              <h4 id='totalCost'>Total: £{calculateTotalCost()}</h4>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <button
+        id='closeTableButton'
+        onClick={() => handleCloseTable(calculateTotalCost())}
+      >
+        Close Table
+      </button>
+    </div>
   );
 }
 

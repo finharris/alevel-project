@@ -57,10 +57,27 @@ db.addProduct = (name, category_id, purchase_cost, selling_cost) => {
   });
 };
 
+db.updateProduct = (name, purchase_cost, selling_cost, productID) => {
+  return new Promise((resolve, reject) => {
+    pool.query(
+      "UPDATE alevel_project.products SET name = ?, purchase_cost = ?, selling_cost = ? WHERE productID = ? ;",
+      [name, purchase_cost, selling_cost, productID],
+      (err, results) => {
+        if (err) {
+          console.log(err);
+          return reject(err);
+        }
+
+        return resolve(results);
+      }
+    );
+  });
+};
+
 db.removeProduct = (id) => {
   return new Promise((resolve, reject) => {
     pool.query(
-      "DELETE FROM alevel_project.products WHERE id=?",
+      "DELETE FROM alevel_project.products WHERE productID=?",
       [id],
       (err, results) => {
         if (err) {
@@ -202,20 +219,24 @@ db.removeSale = (sale_id) => {
   });
 };
 
-db.removeAllSale = (table_number) => {
+db.removeAllSale = (table_number, itemID) => {
+  let query, data;
+  if (table_number === null) {
+    query = "DELETE FROM alevel_project.item_sales WHERE product_id = ?";
+    data = itemID;
+  } else if (itemID === null) {
+    query = "DELETE FROM alevel_project.item_sales WHERE table_number = ?";
+    data = table_number;
+  }
   return new Promise((resolve, reject) => {
-    pool.query(
-      "DELETE FROM alevel_project.item_sales WHERE table_number = ?",
-      [table_number],
-      (err, results) => {
-        if (err) {
-          console.log(err);
-          return reject(err);
-        }
-
-        return resolve(results);
+    pool.query(query, [data], (err, results) => {
+      if (err) {
+        console.log(err);
+        return reject(err);
       }
-    );
+
+      return resolve(results);
+    });
   });
 };
 

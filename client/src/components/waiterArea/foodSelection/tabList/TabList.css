@@ -2,18 +2,18 @@
   list-style: none;
   display: flex;
   flex-direction: column;
-  height: 70vh;
+  height: 65vh;
   overflow-y: scroll;
   gap: 0.8rem;
 }
 
 .tabTableScrollShadow {
-  box-shadow: inset 0px -39px 25px -30px rgba(0,0,0,0.5);
+  box-shadow: inset 0px -39px 25px -30px rgba(0, 0, 0, 0.5);
 }
 
 .tabList {
   height: 100%;
-  width: 50vw;
+  width: 45vw;
   overflow-y: scroll;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .quantityArea {
-  display: flex; 
+  display: flex;
   justify-content: center;
 }
 
@@ -46,4 +46,17 @@
 
 #totalCost {
   font-size: 1.5rem;
+}
+
+.tabListContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+#closeTableButton {
+  width: 10rem;
+  height: 5rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  align-self: center;
 }

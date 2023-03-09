@@ -1,5 +1,4 @@
 const express = require("express");
-
 const router = express.Router();
 
 const test = require("./test");
@@ -10,6 +9,9 @@ router.get("/products", products);
 
 const addProduct = require("./addProduct");
 router.get("/products/add", addProduct);
+
+const updateProduct = require("./updateProduct");
+router.get("/products/update", updateProduct);
 
 const removeProduct = require("./removeProduct");
 router.get("/products/remove", removeProduct);

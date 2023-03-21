@@ -34,7 +34,9 @@ function TabItem(props) {
             class='quantityButton'
           />
         </div>
-        <p className='tabItemCost'>£{props.selling_cost * props.quantity}</p>
+        <p className='tabItemCost'>
+          £{props.handleRounding(props.selling_cost * props.quantity)}
+        </p>
       </div>
     </li>
   );

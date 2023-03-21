@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Keypad from "../../utility/keypad/Keypad";
 import "./TableChoice.css";
 
 function TableChoiceMenu(props) {
   useEffect(() => {
     props.getTables();
-  }, []);
+  }, [props]);
 
   function handleKeypadSubmit(value) {
     let tableExists = false;
@@ -32,6 +32,9 @@ function TableChoiceMenu(props) {
         Type in an active table number to select it or type a non active table
         number to create and select it.
       </p>
+      <p>
+        <i>You may also click on a number in the list on the left.</i>
+      </p>
       <h4 onClick={() => props.getTables()} className='clickable'>
         Refresh...
       </h4>
@@ -46,7 +49,12 @@ function TableChoiceMenu(props) {
             {props.activeTables.length > 0
               ? props.activeTables.map((table, key) => (
                   <tr key={key}>
-                    <td>{table.number}</td>
+                    <td
+                      onClick={() => handleKeypadSubmit(table.number)}
+                      className={"tableNumberTab"}
+                    >
+                      {table.number}
+                    </td>
                   </tr>
                 ))
               : null}

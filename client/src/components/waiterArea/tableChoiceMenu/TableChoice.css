@@ -31,3 +31,12 @@
   height: 500px;
   width: 30rem;
 }
+
+.tableNumberTab {
+  cursor: pointer;
+}
+
+.tableNumberTab:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transition: background 100ms ease-in-out;
+}

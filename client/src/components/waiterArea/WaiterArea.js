@@ -22,7 +22,7 @@ function WaiterArea(props) {
   async function addTable(number) {
     const res = await fetch(`/api/tables/add?number=${number}`);
     const data = await res.json();
-    if ((await data.serverStatus) !== 2) {
+    if ((await data.serverStatus) !== 200) {
       console.log(data);
     }
   }

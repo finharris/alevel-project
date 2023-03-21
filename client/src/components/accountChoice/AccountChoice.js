@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Keypad from "../utility/keypad/Keypad";
 import Popup from "../utility/popup/Popup";
 import "./AccountChoice.css";

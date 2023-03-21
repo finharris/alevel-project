@@ -70,6 +70,7 @@ function TabList({
             handleQuantityChange={handleQuantityChange}
             key={item.sale_id}
             sale_id={item.sale_id}
+            handleRounding={handleRounding}
           ></TabItem>
         );
       }
@@ -88,7 +89,11 @@ function TabList({
 
       total += product.selling_cost * item.quantity;
     }
-    return total;
+    return handleRounding(total);
+  }
+
+  function handleRounding(num) {
+    return Math.round((num + Number.EPSILON) * 100) / 100;
   }
 
   return (

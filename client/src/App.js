@@ -44,9 +44,9 @@ function App() {
         <tbody>
           {products.map((product) => (
             <tr>
-              <td>{product.id}</td>
+              <td>{product.productID}</td>
               <td>{product.name}</td>
-              <td>{product.category_id}</td>
+              <td>{product.categoryID}</td>
               <td>{product.purchase_cost}</td>
               <td>{product.selling_cost}</td>
             </tr>

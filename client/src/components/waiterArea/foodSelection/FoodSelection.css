@@ -27,13 +27,32 @@
 }
 
 .productTile {
-  width: 10rem;
+  width: 20%;
   height: 10rem;
-  background: red;
+  background: rgb(57, 229, 255);
+  font-weight: 600;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 1rem 0rem;
+  cursor: pointer;
+  border: 1px solid gray;
+  gap: 2rem;
+}
+
+.productTile:hover {
+  background: hsl(188, 100%, 45%);
+  transition: background 100ms ease-in-out;
 }
 
 .tablesArea {
   display: flex;
   flex-direction: row;
   gap: 3rem;
+}
+
+.category-button:hover {
+  background: rgba(0, 0, 0, 0.2);
+  transition: background 100ms ease-in-out;
 }

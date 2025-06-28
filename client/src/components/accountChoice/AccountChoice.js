@@ -7,15 +7,18 @@ function AccountChoice(props) {
   const [userOption, setUserOption] = useState("");
   const [popupShown, setPopupShown] = useState(false);
 
+  // gets auth codes from database
   async function fetchData() {
     const res = await fetch("/api/authcodes");
     return await res.json();
   }
 
+  // close the keypad popup
   function handleClosePopup() {
     setPopupShown(false);
   }
 
+  // set the variable to select the popup that was clicked and show the keypad popup
   function handleOptionSelect(e) {
     const option = e.target.value;
     setUserOption(option);
@@ -23,8 +26,9 @@ function AccountChoice(props) {
   }
 
   async function handleKeypadSubmit(value) {
-    // maybe get correct values from db
+    // get correct auth codes from the database
     let authCodes = await fetchData();
+    //check inputted values against values from database
     if (userOption === "Waiter" && value === authCodes[1].code) {
       props.handleUserOption(userOption);
     } else if (userOption === "Manager" && value === authCodes[0].code) {

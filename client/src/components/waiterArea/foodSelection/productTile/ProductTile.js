@@ -6,8 +6,8 @@ function ProductTile(props) {
       className='productTile'
       onClick={() => props.handleProductSelect(props.product)}
     >
-      {props.product.name}
-      <br></br>£{props.product.selling_cost}
+      <p>{props.product.name}</p>
+      <p>£{props.product.selling_cost}</p>
     </div>
   );
 }
